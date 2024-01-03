@@ -23,7 +23,6 @@ services:
       - POSTGRES_USER=milan
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=speer_notes
-      - POSTGRES_EXTENSIONS=pg_trgm
 
 volumes:
   postgres_data:
