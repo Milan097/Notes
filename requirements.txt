@@ -1,0 +1,4 @@
+django==4.2.9
+psycopg2-binary==2.9.6
+djangorestframework==3.14
+django-ratelimit==4.1.0

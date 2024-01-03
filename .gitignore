@@ -1,0 +1,12 @@
+# .gitignore
+
+# Virtual environment
+venv/
+
+# Compiled Python files
+*.pyc
+__pycache__/
+*.idea/
+
+# Environment variables file
+.env

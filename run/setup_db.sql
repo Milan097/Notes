@@ -1,0 +1,5 @@
+CREATE ROLE milan WITH LOGIN PASSWORD 'password' CREATEDB;
+CREATE DATABASE speer_notes;
+GRANT ALL PRIVILEGES ON DATABASE speer_notes TO milan;
+\c speer_notes;
+CREATE EXTENSION btree_gist;
