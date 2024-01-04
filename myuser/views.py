@@ -13,6 +13,10 @@ class SignUpView(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
+
+        if not username or not password:
+            return Response("Please provide password and username to signup !!!", status=status.HTTP_400_BAD_REQUEST)
+
         user = MyUser(username=username, password=make_password(password))
         user.save()
         user_data = MyUserSerializer(user).data
