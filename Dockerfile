@@ -13,9 +13,6 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY ./gist_extension.sh .
-RUN ./gist_extension.sh
-
 RUN apt-get update && apt-get install -y netcat
 
 # copy project

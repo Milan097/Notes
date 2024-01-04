@@ -21,7 +21,6 @@ class NotesViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
 
-    @ratelimit(key='ip', rate='25/m', block=True)
     def list(self, request, *args, **kwargs):
         try:
             user_id = request.user.id
@@ -45,7 +44,6 @@ class NotesViewSet(viewsets.ModelViewSet):
             print(e)
             return Response("Internal server error", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    @ratelimit(key='ip', rate='25/m', block=True)
     def retrieve(self, request, *args, **kwargs):
         user_id = request.user.id
         instance = self.get_object()
@@ -57,14 +55,12 @@ class NotesViewSet(viewsets.ModelViewSet):
         else:
             return Response(data="Note is not accessible for you !!!", status=status.HTTP_401_UNAUTHORIZED)
 
-    @ratelimit(key='ip', rate='5/m', block=True) 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @ratelimit(key='ip', rate='15/m', block=True)
     def update(self, request, *args, **kwargs):
         user_id = request.user.id
         instance = self.get_object()
@@ -78,7 +74,6 @@ class NotesViewSet(viewsets.ModelViewSet):
         else:
             return Response(data="Note is not editable by you !!!", status=status.HTTP_401_UNAUTHORIZED)
 
-    @ratelimit(key='ip', rate='5/m', block=True)
     def destroy(self, request, *args, **kwargs):
         user_id = request.user.id
         instance = self.get_object()
@@ -91,7 +86,6 @@ class NotesViewSet(viewsets.ModelViewSet):
             return Response(data="Note is not editable by you !!!", status=status.HTTP_401_UNAUTHORIZED)
         
     @action(methods=["POST"], detail=True)
-    @ratelimit(key='ip', rate='15/m', block=True)
     def share(self, request, *args, **kwargs):
         user_id = request.user.id
         share_with_user_id = request.data.get('share_with')

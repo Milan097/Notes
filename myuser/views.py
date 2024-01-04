@@ -6,12 +6,10 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.decorators import permission_classes
 from django.contrib.auth.hashers import make_password
-from django_ratelimit.decorators import ratelimit
 
 
 @permission_classes([permissions.AllowAny])
 class SignUpView(APIView):
-    @ratelimit(key='ip', rate='5/m', block=True)
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -23,7 +21,6 @@ class SignUpView(APIView):
 
 @permission_classes([permissions.AllowAny])
 class LoginView(APIView):
-    @ratelimit(key='ip', rate='10/m', block=True)
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
